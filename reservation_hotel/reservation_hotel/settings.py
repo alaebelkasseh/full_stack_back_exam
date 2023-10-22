@@ -121,3 +121,56 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+####################################################
+
+import sqlite3
+
+
+
+# Établir une connexion à la base de données SQLite (ou la créer si elle n'existe pas)
+
+conn = sqlite3.connect('db_reservations.db')
+
+
+
+# Créer un curseur pour exécuter des requêtes SQL
+
+cursor = conn.cursor()
+
+
+
+# Exemple : Créer une table dans la base de données
+
+cursor.execute('''
+
+    CREATE TABLE IF NOT EXISTS reservations (
+
+        id INTEGER PRIMARY KEY,
+
+        nom TEXT,
+
+        date_arrivee DATE,
+
+        date_depart DATE,
+
+        chambre TEXT
+
+    )
+
+''')
+
+
+
+# Exemple : Insérer des données dans la table
+
+cursor.execute("INSERT INTO reservations (nom, date_arrivee, date_depart, chambre) VALUES (?, ?, ?, ?)", ('John Doe', '2023-10-25', '2023-10-30', 'Suite 101'))
+
+
+
+# Valider la transaction et fermer la connexion
+
+conn.commit()
+
+conn.close()
+
