@@ -16,10 +16,11 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from rest_framework.routers import DefaultRouter
 from app_de_reservation_hotel.views import ReservationViewSet
 from app_de_reservation_hotel.views import ChambreViewSet
+from app_de_reservation_hotel.swagger import schema_view
 
 
 router = DefaultRouter()
@@ -32,6 +33,10 @@ urlpatterns = [
     # Ajoutez d'autres URL de votre application ici
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
+    #path('api/', include('reservations.urls')),
+    re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]
 
 urlpatterns += router.urls
+
