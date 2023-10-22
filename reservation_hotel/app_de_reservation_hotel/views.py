@@ -1,11 +1,19 @@
 from django.shortcuts import render
 
 from rest_framework import viewsets
+from .models import Hotel
 from .models import Reservation
 from .models import Chambre
+from .serializers import HotelSerializer
 from .serializers import ReservationSerializer
 from .serializers import ChambreSerializer
 from .permissions import IsOwnerOrReadOnly
+
+class HotelViewSet(viewsets.ModelViewSet):
+
+    queryset = Hotel.objects.all()
+    serializer_class = HotelSerializer
+    permission_classes = [IsOwnerOrReadOnly] 
 
 class ReservationViewSet(viewsets.ModelViewSet):
 

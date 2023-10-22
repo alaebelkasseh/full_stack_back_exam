@@ -127,47 +127,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-import sqlite3
-
-# Établir une connexion à la base de données SQLite (ou la créer si elle n'existe pas)
-conn = sqlite3.connect('db_reservations.db')
-
-# Créer un curseur pour exécuter des requêtes SQL
-cursor = conn.cursor()
-
-# Exemple : Créer une table dans la base de données
-cursor.execute('''
-    CREATE TABLE IF NOT EXISTS reservation (
-        id INTEGER PRIMARY KEY,
-        nom TEXT,
-        date_arrivee DATE,
-        date_depart DATE,
-        chambre TEXT
-    );
-''')
-
-cursor.execute('''
-    CREATE TABLE IF NOT EXISTS chambre (
-        id INTEGER PRIMARY KEY,
-        numero TEXT,
-        type TEXT
-    );
-''')
-
-# Exemple : Insérer des données dans la table
-cursor.execute("INSERT INTO reservation (nom, date_arrivee, date_depart, chambre) VALUES (?, ?, ?, ?)", ('Doe', '2023-10-25', '2023-10-30', '101'))
-cursor.execute("INSERT INTO reservation (nom, date_arrivee, date_depart, chambre) VALUES (?, ?, ?, ?)", ('Fresne', '2023-10-25', '2023-10-30', '103'))
-cursor.execute("INSERT INTO chambre (numero, type) VALUES (?, ?)", ('101', 'duo'))
-cursor.execute("INSERT INTO chambre (numero, type) VALUES (?, ?)", ('102', 'duo'))
-cursor.execute("INSERT INTO chambre (numero, type) VALUES (?, ?)", ('103', 'solo'))
-cursor.execute("INSERT INTO chambre (numero, type) VALUES (?, ?)", ('201', 'duo'))
-cursor.execute("INSERT INTO chambre (numero, type) VALUES (?, ?)", ('202', 'duo'))
-cursor.execute("INSERT INTO chambre (numero, type) VALUES (?, ?)", ('203', 'suite'))
-
-# Valider la transaction et fermer la connexion
-conn.commit()
-conn.close()
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -190,3 +149,57 @@ SWAGGER_SETTINGS = {
         },
     },
 }
+
+
+# insertion de données dans la base SQLITE
+import sqlite3
+
+conn = sqlite3.connect('db.sqlite3')
+
+cursor = conn.cursor()
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS hotel (
+        id INTEGER PRIMARY KEY,
+        nom TEXT,
+        description TEXT
+    );
+''')
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS reservation (
+        id INTEGER PRIMARY KEY,
+        nom TEXT,
+        date_arrivee DATE,
+        date_depart DATE,
+        numero_chambre TEXT
+    );
+''')
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS chambre (
+        id INTEGER PRIMARY KEY,
+        numero TEXT,
+        nom_hotel TEXT,
+        type TEXT
+    );
+''')
+
+cursor.execute(f'DELETE FROM hotel')
+cursor.execute(f'DELETE FROM reservation')
+cursor.execute(f'DELETE FROM chambre')
+
+cursor.execute("INSERT INTO hotel (nom, description) VALUES (?, ?)", ('Hotel luxe 1', 'Hotel au plein centre de la ville de Paris avec chambres luxueuses, salles de réunions et service voiturier'))
+cursor.execute("INSERT INTO hotel (nom, description) VALUES (?, ?)", ('Hotel luxe 2', 'Hotel sur la cote de la ville de Nice avec chambres luxueuses, SPAs et terrains de sports'))
+
+cursor.execute("INSERT INTO reservation (nom, date_arrivee, date_depart, numero_chambre) VALUES (?, ?, ?, ?)", ('Doe', '2023-10-25', '2023-10-30', '101'))
+cursor.execute("INSERT INTO reservation (nom, date_arrivee, date_depart, numero_chambre) VALUES (?, ?, ?, ?)", ('Fresne', '2023-10-25', '2023-10-30', '103'))
+
+cursor.execute("INSERT INTO chambre (numero, type, nom_hotel) VALUES (?, ?, ?)", ('101', 'duo', 'Hotel luxe 1'))
+cursor.execute("INSERT INTO chambre (numero, type, nom_hotel) VALUES (?, ?, ?)", ('102', 'duo', 'Hotel luxe 1'))
+cursor.execute("INSERT INTO chambre (numero, type, nom_hotel) VALUES (?, ?, ?)", ('103', 'solo', 'Hotel luxe 1'))
+cursor.execute("INSERT INTO chambre (numero, type, nom_hotel) VALUES (?, ?, ?)", ('201', 'duo', 'Hotel luxe 1'))
+cursor.execute("INSERT INTO chambre (numero, type, nom_hotel) VALUES (?, ?, ?)", ('202', 'duo', 'Hotel luxe 1'))
+cursor.execute("INSERT INTO chambre (numero, type, nom_hotel) VALUES (?, ?, ?)", ('203', 'suite', 'Hotel luxe 1'))
+
+conn.commit()
+conn.close()
+
+
