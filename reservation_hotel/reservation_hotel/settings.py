@@ -138,12 +138,15 @@ cursor.execute('''
         date_arrivee DATE,
         date_depart DATE,
         chambre TEXT
-    )
+    );
+''')
+
+cursor.execute('''
     CREATE TABLE IF NOT EXISTS chambre (
         id INTEGER PRIMARY KEY,
         numero TEXT,
         type TEXT
-    )
+    );
 ''')
 
 # Exemple : Insérer des données dans la table
