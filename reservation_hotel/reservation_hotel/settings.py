@@ -155,7 +155,14 @@ cursor.execute('''
 ''')
 
 # Exemple : Insérer des données dans la table
-cursor.execute("INSERT INTO reservation (nom, date_arrivee, date_depart, chambre) VALUES (?, ?, ?, ?)", ('John Doe', '2023-10-25', '2023-10-30', 'Suite 101'))
+cursor.execute("INSERT INTO reservation (nom, date_arrivee, date_depart, chambre) VALUES (?, ?, ?, ?)", ('Doe', '2023-10-25', '2023-10-30', '101'))
+cursor.execute("INSERT INTO reservation (nom, date_arrivee, date_depart, chambre) VALUES (?, ?, ?, ?)", ('Fresne', '2023-10-25', '2023-10-30', '103'))
+cursor.execute("INSERT INTO chambre (numero, type) VALUES (?, ?)", ('101', 'duo'))
+cursor.execute("INSERT INTO chambre (numero, type) VALUES (?, ?)", ('102', 'duo'))
+cursor.execute("INSERT INTO chambre (numero, type) VALUES (?, ?)", ('103', 'solo'))
+cursor.execute("INSERT INTO chambre (numero, type) VALUES (?, ?)", ('201', 'duo'))
+cursor.execute("INSERT INTO chambre (numero, type) VALUES (?, ?)", ('202', 'duo'))
+cursor.execute("INSERT INTO chambre (numero, type) VALUES (?, ?)", ('203', 'suite'))
 
 # Valider la transaction et fermer la connexion
 conn.commit()
