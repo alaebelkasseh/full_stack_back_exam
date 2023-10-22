@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Reservation
+from .models import Chambre
+
 
 class ReservationSerializer(serializers.ModelSerializer):
 
@@ -7,7 +9,7 @@ class ReservationSerializer(serializers.ModelSerializer):
 
         model = Reservation
 
-        fields = '__all__
+        fields = '__all__'
 
 class ChambreSerializer(serializers.ModelSerializer):
 
@@ -15,4 +17,4 @@ class ChambreSerializer(serializers.ModelSerializer):
 
         model = Chambre
 
-        fields = '__all__
+        fields = '__all__'

@@ -14,9 +14,31 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
+
+#from django.contrib import admin
+#from django.urls import path
+
+#urlpatterns = [
+#    path('admin/', admin.site.urls),
+#]
+
+from rest_framework.routers import DefaultRouter
+
+from app_de_reservation_hotel.views import ReservationViewSet
+
+
+router = DefaultRouter()
+
+router.register(r'reservations', ReservationViewSet)
+
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+
+    # Ajoutez d'autres URL de votre application ici
+
 ]
+
+
+
+urlpatterns += router.urls

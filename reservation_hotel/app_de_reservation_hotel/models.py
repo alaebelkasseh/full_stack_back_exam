@@ -9,12 +9,18 @@ class Reservation(models.Model):
     date_de_depart = models.DateField()
 
     chambre = models.CharField(max_length=10)
+
+    class Meta:
+        app_label = 'app_de_reservation_hotel'
     
 class Chambre(models.Model):
 
     numero = models.CharField(max_length=10)
 
     type = models.CharField(max_length=100)
+
+    class Meta:
+        app_label = 'app_de_reservation_hotel'
 
 
 
