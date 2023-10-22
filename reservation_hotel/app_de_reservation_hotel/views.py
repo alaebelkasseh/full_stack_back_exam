@@ -9,11 +9,9 @@ from .serializers import ChambreSerializer
 class ReservationViewSet(viewsets.ModelViewSet):
 
     queryset = Reservation.objects.all()
-
     serializer_class = ReservationSerializer
 
 class ChambreViewSet(viewsets.ModelViewSet):
 
-    queryset = Reservation.objects.all()
-
+    queryset = Chambre.objects.all()
     serializer_class = ChambreSerializer

@@ -8,7 +8,6 @@ class ReservationSerializer(serializers.ModelSerializer):
     class Meta:
 
         model = Reservation
-
         fields = '__all__'
 
 class ChambreSerializer(serializers.ModelSerializer):
@@ -16,5 +15,4 @@ class ChambreSerializer(serializers.ModelSerializer):
     class Meta:
 
         model = Chambre
-
         fields = '__all__'
