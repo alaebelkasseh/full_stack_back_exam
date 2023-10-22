@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+    'rest_framework_jwt',
+    #'app_de_reservation_hotel',  
 ]
 
 MIDDLEWARE = [
@@ -155,4 +159,17 @@ cursor.execute("INSERT INTO reservation (nom, date_arrivee, date_depart, chambre
 # Valider la transaction et fermer la connexion
 conn.commit()
 conn.close()
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+
+import datetime
+JWT_AUTH = {
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),  # Durée de validité d'un jour
+}
 
